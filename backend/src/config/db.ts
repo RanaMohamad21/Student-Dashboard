@@ -1,15 +1,17 @@
-const mongoose = require("mongoose");
-require("dotenv").config();
-const getErrorMessage = require('../utils/getErrorMessage') 
-const connectDB = async()=>{
-    try {
-        await mongoose.connect(process.env.MONGODB_URL);
-        console.log("MongoDB connected successfully!");
-    } catch (error) {
-        getErrorMessage(error);
-        // To exit the current process with failure.
-        process.exit(1);
-    }
-}
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import getErrorMessage from "../utils/getErrorMessage";
+import process from "process";
+dotenv.config();
+
+const connectDB = async () => {
+  try {
+    const connection = await mongoose.connect(process.env.MONGODB_URL as string);
+    console.log(`MongoDB connected successfully on ${connection.connection.host}!`);
+  } catch (error) {
+    getErrorMessage(error);
+    process.exit(1); // Exit process with failure
+  }
+};
 
 export default connectDB;
