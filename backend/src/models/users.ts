@@ -20,9 +20,9 @@ const userSchema = new mongoose.Schema({
       },
       userType:{
         type: String,
-        enum: ["student","teacher",  "Admin", "Staff"],
+        enum: ["student","teacher",  "admin", "staff"],
         required: true
       }
 })
 
-module.exports = mongoose.model("User", userSchema);
+export default mongoose.model("User", userSchema);

@@ -99,4 +99,4 @@ quizSchema
 //   Indexes for performance:
 quizSchema.index({"submissions.student":1});
 
-module.exports = mongoose.model("Quiz", quizSchema);
+export default mongoose.model("Quiz", quizSchema);

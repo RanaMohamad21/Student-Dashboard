@@ -15,7 +15,7 @@ const announcementSchema = new mongoose.Schema(
       },
       role: {
         type: String,
-        enum: ["Teacher", "Admin", "Staff"],
+        enum: ["teacher", "admin", "staff"],
         required: true,
       },
     },
@@ -65,4 +65,4 @@ announcementSchema.index({ isGlobal: 1 });
 announcementSchema.index({ "announcer.id": 1 });
 announcementSchema.index({ targetedGrades: 1 });
 
-module.exports = mongoose.model("Announcement", announcementSchema);
+export default mongoose.model("Announcement", announcementSchema);
