@@ -35,12 +35,12 @@ const announcementSchema = new mongoose.Schema(
     message: {
       type: String,
       required: true,
-      maxLength: 1000,
+      maxLength: [1000, "Message cannot exceed 1000 characters"],
     },
     title: {
       type: String,
       required: true,
-      maxLength: 100,
+      maxLength: [100, "Title cannot exceed 100 characters"],
     },
     createdAt: {
       type: Date,
