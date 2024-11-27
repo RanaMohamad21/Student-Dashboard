@@ -68,8 +68,7 @@ const quizSchema = new mongoose.Schema({
     required: true,
   },
 });
-quizSchema.index({ subject: 1 });
-quizSchema.index({ "schedule.start": 1 });
+
 
 quizSchema
   .path("questions")
@@ -98,5 +97,7 @@ quizSchema
 
 //   Indexes for performance:
 quizSchema.index({"submissions.student":1});
+quizSchema.index({ subject: 1 });
+quizSchema.index({ "schedule.start": 1 });
 
 export default mongoose.model("Quiz", quizSchema);
