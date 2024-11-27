@@ -3,7 +3,7 @@ import Quiz from "../models/quizzes";
 import getErrorMessage from '../utils/getErrorMessage';
 
 // CREATE: Add a new Quiz
-export const createQuiz = async (req: Request, res:Response)=>{
+export const createQuiz = async (req: Request, res:Response): Promise<any> =>{
     try {
        const quizData  = req.body;
        const newQuiz = new Quiz(quizData);
