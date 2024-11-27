@@ -6,7 +6,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import connectDB  from './config/db';
 import getErrorMessage from './utils/getErrorMessage';
-
+import quizRoutes from './routes/quizRoutes';
 
 //* Configuration
 const http = require('http');
@@ -39,11 +39,11 @@ const startServer = async () => {
         process.exit(1); // Exit with failure code
     }
 }
-startServer();
 
 // Routes
-// app.use()
+app.use('/api', quizRoutes);
 
+startServer();
 
 
 
