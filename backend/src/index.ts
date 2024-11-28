@@ -7,7 +7,7 @@ import helmet from 'helmet';
 import connectDB  from './config/db';
 import getErrorMessage from './utils/getErrorMessage';
 import quizRoutes from './routes/quizRoutes';
-
+import announcementRoutes from './routes/announcementRoutes';
 //* Configuration
 const http = require('http');
 dotenv.config() 
@@ -42,7 +42,7 @@ const startServer = async () => {
 
 // Routes
 app.use('/api', quizRoutes);
-
+app.use('/api',announcementRoutes)
 startServer();
 
 
