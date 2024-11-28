@@ -1,19 +1,26 @@
-import IconButton from "@mui/material/IconButton";
 import { styled, alpha } from "@mui/material/styles";
-import Toolbar from "@mui/material/Toolbar";
-import AppBar from "@mui/material/AppBar";
 import MenuIcon from "@mui/icons-material/Menu";
-import Typography from "@mui/material/Typography";
-import { Box, useMediaQuery, useTheme } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import InputBase from "@mui/material/InputBase";
-import { useState } from "react";
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import Badge from '@mui/material/Badge';
-import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import MailIcon from "@mui/icons-material/Mail";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import LogoutIcon from "@mui/icons-material/Logout";
+import {
+  IconButton,
+  Toolbar,
+  AppBar,
+  Typography,
+  Box,
+  useMediaQuery,
+  useTheme,
+  InputBase,
+  Badge,
+} from "@mui/material";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
+import { AppDispatch } from "../app/store";
+import { logout } from "../features/auth/authenticationSlice";
 interface NavBarProps {
   drawerWidth: number;
   handleDrawerToggle: () => void;
@@ -63,8 +70,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function NavBar({ drawerWidth, handleDrawerToggle }: NavBarProps) {
   const theme = useTheme();
-  const [activeSearch, setActiveSearch] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("md"));
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
   return (
     <AppBar
       position="fixed"
@@ -144,9 +157,6 @@ function NavBar({ drawerWidth, handleDrawerToggle }: NavBarProps) {
               size="large"
               aria-label="search"
               color="inherit"
-              onClick={() => {
-                setActiveSearch(true);
-              }}
               sx={{
                 "&:focus": {
                   outlineColor: "white",
@@ -160,45 +170,59 @@ function NavBar({ drawerWidth, handleDrawerToggle }: NavBarProps) {
           )}
         </Box>
 
-        <Box sx={{ display: 'flex'
+        <Box
+          sx={{
+            display: "flex",
             // { xs: 'none', md: 'flex' }
-             }}>
-            <IconButton title= "Logout" size="large" aria-label="show 4 new mails" color="inherit"
-            sx={{"&:focus":{
-              outlineColor: theme.palette.primary.light
-            }}}
-            onClick={()=>{}}
-            >
-              <Badge  color="error">
-                <LogoutIcon />
-              </Badge>
-            </IconButton>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
+          }}
+        >
+          <IconButton
+            title="Logout"
+            size="large"
+            aria-label="show 4 new mails"
+            color="inherit"
+            sx={{
+              "&:focus": {
+                outlineColor: theme.palette.primary.light,
+              },
+            }}
+            onClick={() => {
+              handleLogout();
+            }}
+          >
+            <Badge color="error">
+              <LogoutIcon />
+            </Badge>
+          </IconButton>
+          <IconButton
+            size="large"
+            aria-label="show 4 new mails"
+            color="inherit"
+          >
+            <Badge badgeContent={4} color="error">
+              <MailIcon />
+            </Badge>
+          </IconButton>
+          <IconButton
+            size="large"
+            aria-label="show 17 new notifications"
+            color="inherit"
+          >
+            <Badge badgeContent={17} color="error">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+          <IconButton
+            size="large"
+            edge="end"
+            aria-label="account of current user"
             //   aria-controls={menuId}
-              aria-haspopup="true"
-
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </Box>
+            aria-haspopup="true"
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+        </Box>
       </Toolbar>
     </AppBar>
   );
