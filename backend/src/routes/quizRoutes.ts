@@ -6,7 +6,6 @@ import {
   getOldQuizzesByStudent, 
   getQuizzesByDate, 
   getArchivedQuizzesBySubject, 
-  getInactiveQuizzesByDate, 
   getActiveQuizzes, 
   updateQuiz, 
   deleteQuiz, 
@@ -31,7 +30,6 @@ router.get('/quizzes/subject/archived/:id', getArchivedQuizzesBySubject); // Rou
 
 // Routes related to date:
 router.get('/quizzes/date', getQuizzesByDate); // Route to get quizzes by specific date:
-router.get('/quizzes/inactive', getInactiveQuizzesByDate); // Route to get inactive quizzes (upcoming quizzes):
 
 // Routes related to active quizzes:
 router.get('/quizzes/active', getActiveQuizzes); // Route to get active quizzes
