@@ -1,15 +1,15 @@
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
+// import InboxIcon from '@mui/icons-material/MoveToInbox';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
+// import MailIcon from '@mui/icons-material/Mail';
 import Typography from "@mui/material/Typography";
-import Toolbar from '@mui/material/Toolbar';
+// import Toolbar from '@mui/material/Toolbar';
 import HouseSharpIcon from "@mui/icons-material/HouseSharp";
 import CalendarMonthSharpIcon from "@mui/icons-material/CalendarMonthSharp";
 import LocalLibrarySharpIcon from "@mui/icons-material/LocalLibrarySharp";
@@ -150,9 +150,10 @@ function SideBar({drawerWidth, handleDrawerTransitionEnd, handleDrawerClose, mob
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
+            display: { xs: 'block', sm : 'none' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth ,
               background: `linear-gradient(${theme.palette.primary.dark},${theme.palette.primary.main})`,
+             
             },
             
           }}
