@@ -1,7 +1,7 @@
+import mongoose, { Schema } from "mongoose";
+import { AnnouncementType } from "../types/announcement";
 
-import mongoose from "mongoose";
-
-const announcementSchema = new mongoose.Schema(
+const announcementSchema = new Schema<AnnouncementType>(
   {
     isGlobal: {
       type: Boolean,
@@ -23,13 +23,6 @@ const announcementSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Grade",
-        validate: {
-          // Ensures no duplicates.
-          validator: function (grades: mongoose.Schema.Types.ObjectId[]) {
-            return new Set(grades).size === grades.length;
-          },
-          message: "Targeted grades cannot have duplicate entries.",
-        },
       },
     ],
     message: {
@@ -65,4 +58,7 @@ announcementSchema.index({ isGlobal: 1 });
 announcementSchema.index({ "announcer.id": 1 });
 announcementSchema.index({ targetedGrades: 1 });
 
-export default mongoose.model("Announcement", announcementSchema);
+export default mongoose.model<AnnouncementType>(
+  "Announcement",
+  announcementSchema
+);
