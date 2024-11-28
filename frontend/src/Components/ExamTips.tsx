@@ -72,7 +72,13 @@ function ExamTips() {
   return (
     <Box
       sx={{
+        marginBottom: 4,
         p: 3,
+        background: `${theme.palette.background.default}`,
+
+        borderRadius: "10px",
+       
+    
       }}
     >
       <Typography
@@ -92,7 +98,8 @@ function ExamTips() {
         <Typography
           sx={{
             fontStyle: "italic",
-            py: 2,
+            pb: 2,
+            pt: 1,
             color: `${theme.palette.secondary.dark}`,
           }}
         >
