@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Quiz from "../models/quizzes";
 import {formatResponse} from "../utils/formatResponse"
+import mongoose from "mongoose";
 
 // CREATE: Add a new Quiz
 export const createQuiz = async (req: Request, res: Response): Promise<any> => {
@@ -21,7 +22,7 @@ export const getQuiz = async (req: Request, res: Response): Promise<any> => {
   try {
     const quiz = await Quiz.findById(req.params.id);
     if (!quiz) {
-      return res.status(404).json(formatResponse("Quiz not found"));
+      return res.status(404).json(formatResponse("Quiz not found",null, "NotFoundError"));
     }
     res.status(200).json(formatResponse("Quiz fetched successfully", quiz));
   } catch (error) {
@@ -58,7 +59,8 @@ export const getOldQuizzesByStudent = async (req: Request, res: Response): Promi
 // READ: Get all upcoming quizzes for a subject
 export const getInactiveQuizzesBySubject = async (req: Request, res: Response): Promise<any> => {
   try {
-    const quizzes = await Quiz.find({ status: "inactive", subject: req.params.id });
+    const subjectId = new mongoose.Types.ObjectId(req.params.id); 
+    const quizzes = await Quiz.find({ status: "inactive", subject: subjectId });
     res.status(200).json(formatResponse("Quizzes fetched successfully", quizzes));
   } catch (error) {
     res
@@ -68,6 +70,7 @@ export const getInactiveQuizzesBySubject = async (req: Request, res: Response): 
 };
 
 // READ: Get quizzes by date
+
 export const getQuizzesByDate = async (req: Request, res: Response): Promise<any> => {
   try {
     const { start } = req.query;
@@ -117,7 +120,7 @@ export const updateQuiz = async (req: Request, res: Response): Promise<any> => {
       runValidators: true,
     });
     if (!updatedQuiz) {
-      return res.status(404).json(formatResponse("Quiz not found"));
+      return res.status(404).json(formatResponse("Quiz not found",null, "NotFoundError"));
     }
     res.status(200).json(formatResponse("Quiz updated successfully", updatedQuiz));
   } catch (error) {
@@ -132,7 +135,7 @@ export const deleteQuiz = async (req: Request, res: Response): Promise<any> => {
   try {
     const deletedQuiz = await Quiz.findByIdAndDelete(req.params.id);
     if (!deletedQuiz) {
-      return res.status(404).json(formatResponse("Quiz not found"));
+      return res.status(404).json(formatResponse("Quiz not found",null,"NotFoundError"));
     }
     res.status(200).json(formatResponse("Quiz deleted successfully"));
   } catch (error) {
