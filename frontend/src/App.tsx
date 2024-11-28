@@ -4,8 +4,12 @@ import MainPage from "./Pages/MainPage";
 
 const theme = createTheme({
   palette: {
-    primary: { main: "#3F8EFC" },
-    secondary: { main: "#68B684" },
+    primary: {
+      main: "#3F8EFC",
+      dark: "#005BB5", // Darker shade of blue
+      light: "#F0F4F7",
+    },
+    secondary: { main: "#7f7f70", dark: "#7f7f7f", light: "#E1E3E2" },
     background: { default: "#FDFFFC" },
     // background: { default: "lightblue" },
   },
@@ -21,9 +25,9 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline/>
+      <CssBaseline />
       {/* <Home /> */}
-      <MainPage/>
+      <MainPage />
     </ThemeProvider>
   );
 }
