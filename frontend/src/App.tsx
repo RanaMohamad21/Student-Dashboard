@@ -1,7 +1,10 @@
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
-// import Home from "./Pages/Home";
+import Home from "./Pages/Home";
 import MainPage from "./Pages/MainPage";
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import requireAuth from "./utils/requireAuth";
+import { Provider } from "react-redux";
+import {store } from "./app/store"
 const theme = createTheme({
   palette: {
     primary: {
@@ -21,14 +24,22 @@ const theme = createTheme({
     },
   },
 });
+const ProtectedDashboard = requireAuth(MainPage);
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
+   <Provider store = {store}>
+     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {/* <Home /> */}
-      <MainPage />
+      <BrowserRouter>
+        {/* <Home /> */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<ProtectedDashboard />} />
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
+   </Provider>
   );
 }
 
