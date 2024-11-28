@@ -1,6 +1,16 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import studentsImage from "../assets/Students-Image.jpg"
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../app/store";
+import {login} from "../features/auth/authenticationSlice";
+import { useNavigate } from "react-router-dom";
 function Home() {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate= useNavigate();
+  const handleLogIn = ()=>{
+    dispatch(login());
+    navigate("/dashboard");
+  }
   return (
   <Box sx={{
 
@@ -29,9 +39,15 @@ function Home() {
       </Typography>
       </Box>
       <Button
-        onClick={() => console.log("Login Button Clicked!")}
+        onClick={() => {
+          
+          handleLogIn()
+        }}
         variant="contained"
         color="primary"
+        sx={{":&focus":{
+          outlineColor: "white"
+        }}}
       >
         Login
       </Button>
