@@ -4,9 +4,13 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../app/store";
 import {login} from "../features/auth/authenticationSlice";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 function Home() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate= useNavigate();
+  const {t} = useTranslation();
+
+
   const handleLogIn = ()=>{
     dispatch(login());
     navigate("/dashboard");
@@ -32,10 +36,12 @@ function Home() {
       }} >
       <Box>
       <Typography variant="h1" align="center" color="primary">
-      Welcome to Coligo
+      {t('home.greeting')}
+      {/* Welcome to Coligo */}
       </Typography>
       <Typography  align="center" color="primary">
-      Your gateway to academic excellence
+      {/* Your gateway to academic excellence */}
+      {t('home.message')}
       </Typography>
       </Box>
       <Button
@@ -49,7 +55,8 @@ function Home() {
           outlineColor: "white"
         }}}
       >
-        Login
+        {t('home.login')}
+        {/* Login */}
       </Button>
     </Container>
     <Box
