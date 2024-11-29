@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import { Quiz } from "../types/quizzType";
+import { QuizType } from "../types/quizzType";
 
-const quizSchema = new mongoose.Schema<Quiz>({
+const quizSchema = new mongoose.Schema<QuizType>({
   subject: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Subject",
@@ -70,34 +70,23 @@ const quizSchema = new mongoose.Schema<Quiz>({
   },
 });
 
-
 quizSchema
   .path("questions")
   .validate(
     (v: any[]) => v.length > 0,
     "A quiz must have at least one question."
   );
-quizSchema
-  .path("questions")
-  .validate(
-    function (questions: any[]){
-        return questions.every(question=> question.answers?.length > 0)
-    }
-   ,
-    "A question must have at least one answer."
+quizSchema.path("questions").validate(function (questions: any[]) {
+  return questions.every((question) => question.answers?.length > 0);
+}, "A question must have at least one answer.");
+quizSchema.path("submissions").validate(function (submissions: any[]) {
+  return submissions.every(
+    (submission) => submission.score > 0 && submission.score < this.maxScore
   );
-quizSchema
-  .path("submissions")
-  .validate(
-    function (submissions: any[]){
-        return submissions.every(submission=> submission.score> 0 && submission.score< this.maxScore )
-    }
-   ,
-    "Each submission must have a valid score between 0 and the maximum score."
-  );
+}, "Each submission must have a valid score between 0 and the maximum score.");
 
 //   Indexes for performance:
-quizSchema.index({"submissions.student":1});
+quizSchema.index({ "submissions.student": 1 });
 quizSchema.index({ subject: 1 });
 quizSchema.index({ "schedule.start": 1 });
 
