@@ -2,9 +2,22 @@
 import { Box, Button,  Typography, useTheme } from "@mui/material";
 // import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import HourglassTopIcon from '@mui/icons-material/HourglassTop';
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../app/store";
+import { fetchQuizzes } from "../features/quizzes/quizzesSlice";
+import { useEffect } from "react";
+import formateDateTime from "../utils/dateTimeFormat";
+import LoadingSppiner from "./LoadingSppiner";
 
 function DueQuizzes() {
+  const dispatch = useDispatch<AppDispatch>();
+  const {quizzes, loading} = useSelector((state: RootState)=> state.quizzes)
   const theme = useTheme();
+
+  useEffect(()=>{
+    dispatch(fetchQuizzes());
+  }, [dispatch]);
+
   return (
     <Box 
     // align="center"
@@ -17,14 +30,20 @@ function DueQuizzes() {
       height: 'fit-content',
       borderRadius: "10px",
     }}>
-       <Typography variant="h5" fontWeight={"bold"} sx={{ color: `black` }}>
+       <Box>
+     <Typography variant="h5" fontWeight={"bold"} sx={{ color: `black` }}>
         What's due
       </Typography>
       <Typography sx={{ color: `${theme.palette.secondary.dark}` }}>
       Your assignments and quizzes, organized and ready to tackle.
       </Typography>
 
-      <Box>
+     </Box>
+       {loading?<LoadingSppiner/>:
+       <Box>
+    
+      {quizzes.map((quiz)=>(
+        <Box>
         {/* Quiz Title */}
       <Box
         sx={{
@@ -43,7 +62,7 @@ function DueQuizzes() {
           
           
           
-          <Typography  fontWeight={'bold'}>Unit 2 quiz</Typography>
+          <Typography  fontWeight={'bold'}>{quiz.title}</Typography>
           
          
         </Box>
@@ -53,14 +72,15 @@ function DueQuizzes() {
           pb:2,
           color: `${theme.palette.secondary.dark}`
         }}>
-          <Typography>Course: Physics 02</Typography>
-          <Typography>Topic: Unit2: Motion and fources</Typography>
-          <Typography>Due on: 20 Dec 2024 - 09:00PM</Typography>
+          <Typography>Course: {quiz.subject}</Typography>
+          <Typography>Due on: {formateDateTime(quiz.schedule.start)}</Typography>
         </Box>
 
         {/* Attempt Quiz */}
         <Button variant="outlined" sx={{color: `${theme.palette.primary.dark}`}}>Start Quiz</Button>
       </Box>
+      ))}
+       </Box>}
 
     </Box>
   )
