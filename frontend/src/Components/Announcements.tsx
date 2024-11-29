@@ -1,23 +1,18 @@
-import { IconButton, useTheme } from "@mui/material";
+import {  IconButton, useTheme } from "@mui/material";
 import { Box, Typography } from "@mui/material";
-import AccountCircle from "@mui/icons-material/AccountCircle";
+// import AccountCircle from "@mui/icons-material/AccountCircle";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../app/store";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import CampaignIcon from '@mui/icons-material/Campaign';
 import { fetchAnnouncements } from "../features/announcements/announcementSlice";
+import LoadingSppiner from "./LoadingSppiner";
 function Announcements() {
   const dispatch = useDispatch<AppDispatch>();
-  const { announcements, loading, error } = useSelector(
+  const { announcements, loading } = useSelector(
     (state: RootState) => state.announcements
   );
-  // const [newAnnouncement, setNewAnnouncement] = useState({
-  //   isGlobal: false,
-  //   announcer: {},
-  //   targetedGrades:[],
-  //   message: "",
-  //   title: "",
-  //   createdAt: ""
-  // });
+
 
   const theme = useTheme();
 
@@ -25,9 +20,7 @@ function Announcements() {
     dispatch(fetchAnnouncements());
   }, [dispatch]);
 
-  if (loading) {
-    return <div>Loading</div>;
-  }
+
   return (
     <Box
       sx={{
@@ -39,12 +32,17 @@ function Announcements() {
         borderRadius: "10px",
       }}
     >
+      <Box>
       <Typography variant="h5" fontWeight={"bold"} sx={{ color: `black` }}>
         Announcements
       </Typography>
       <Typography sx={{ color: `${theme.palette.secondary.dark}` }}>
         Stay updated with important announcements
       </Typography>
+      </Box>
+      {loading? <LoadingSppiner/>:
+      <Box>
+      
 
       {/* Announcement Section */}
       {announcements.map((announcement) => (
@@ -68,23 +66,24 @@ function Announcements() {
                 display: "flex",
               }}
             >
-              <IconButton>
-                <AccountCircle />
+              <IconButton sx={{color: theme.palette.primary.dark}}>
+                <CampaignIcon />
               </IconButton>
 
-              <Box>
+              <Box sx={{marginTop:1, pr:1}}>
                 <Typography fontWeight={"bold"}>
-                  {announcement.announcer.id}
+                  {announcement.title}
                 </Typography>
                 <Typography
                   sx={{
                     color: `${theme.palette.secondary.main}`,
                     fontSize: "13px",
+                    textTransform: 'capitalize',
                   }}
                 >
                   {announcement.isGlobal
                     ? "Management"
-                    : announcement.targetedGrades[0]}
+                    : announcement.announcer.role}
                 </Typography>
               </Box>
             </Box>
@@ -103,50 +102,8 @@ function Announcements() {
         </Box>
       ))}
 
-      {/* Announcement Section */}
-      {/* <Box
-        sx={{
-          display: "grid",
-          marginTop:3, 
-          gridTemplateColumns: { ex: "1fr", md: "1fr 3fr" },
-          gap: "1px",
-
-        }}
-      >
-       
-        <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center'
-        }}>
-        <Box sx={{
-          display: 'flex'
-        }}>
-          <IconButton >
-
-          <AccountCircle />
-          </IconButton>
-          
-          <Box >
-          <Typography  fontWeight={'bold'}>Mr. Ahmed Mostafa</Typography>
-          <Typography sx={{
-            color: `${theme.palette.secondary.main}`,
-            fontSize: '13px'
-          }}>Math 101</Typography>
-          </Box>
-        </Box>
-        </Box>
-     
-        <Box sx={{display: 'flex',
-           alignItems: 'center', 
-           borderLeft: `2px solid ${theme.palette.secondary.light}`,
-           paddingLeft: 2,
-           paddingRight:1
-        }}>
-          <Typography>Attention students! The next math quiz will be held on Friday, so make sure to review all the topics covered. Good luck to everyone! 
-          </Typography>
-        </Box>
-      </Box> */}
+      </Box>}
+      
     </Box>
   );
 }
