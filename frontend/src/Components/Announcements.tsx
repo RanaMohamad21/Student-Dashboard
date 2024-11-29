@@ -1,8 +1,33 @@
 import { IconButton, useTheme } from "@mui/material";
 import { Box, Typography } from "@mui/material";
-import AccountCircle from '@mui/icons-material/AccountCircle';
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../app/store";
+import { useEffect, useState } from "react";
+import { fetchAnnouncements } from "../features/announcements/announcementSlice";
 function Announcements() {
+  const dispatch = useDispatch<AppDispatch>();
+  const { announcements, loading, error } = useSelector(
+    (state: RootState) => state.announcements
+  );
+  // const [newAnnouncement, setNewAnnouncement] = useState({
+  //   isGlobal: false,
+  //   announcer: {},
+  //   targetedGrades:[],
+  //   message: "",
+  //   title: "",
+  //   createdAt: ""
+  // });
+
   const theme = useTheme();
+
+  useEffect(() => {
+    dispatch(fetchAnnouncements());
+  }, [dispatch]);
+
+  if (loading) {
+    return <div>Loading</div>;
+  }
   return (
     <Box
       sx={{
@@ -22,51 +47,64 @@ function Announcements() {
       </Typography>
 
       {/* Announcement Section */}
-      <Box
-        sx={{
-          display: "grid",
-          marginTop:3, 
-          gridTemplateColumns: { ex: "1fr", md: "1fr 3fr" },
-          gap: "1px",
-
-        }}
-      >
-        {/* Announcer */}
+      {announcements.map((announcement) => (
         <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center'
-        }}>
-        <Box sx={{
-          display: 'flex'
-        }}>
-          <IconButton >
+          sx={{
+            display: "grid",
+            marginTop: 3,
+            gridTemplateColumns: { ex: "1fr", md: "1fr 3fr" },
+            gap: "1px",
+          }}
+        >
+          {/* Announcer */}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+              }}
+            >
+              <IconButton>
+                <AccountCircle />
+              </IconButton>
 
-          <AccountCircle />
-          </IconButton>
-          
-          <Box >
-          <Typography  fontWeight={'bold'}>Mr. Ahmed Mostafa</Typography>
-          <Typography sx={{
-            color: `${theme.palette.secondary.main}`,
-            fontSize: '13px'
-          }}>Math 101</Typography>
+              <Box>
+                <Typography fontWeight={"bold"}>
+                  {announcement.announcer.id}
+                </Typography>
+                <Typography
+                  sx={{
+                    color: `${theme.palette.secondary.main}`,
+                    fontSize: "13px",
+                  }}
+                >
+                  {announcement.isGlobal
+                    ? "Management"
+                    : announcement.targetedGrades[0]}
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+          {/* Announcement content */}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              borderLeft: `2px solid ${theme.palette.secondary.light}`,
+              paddingLeft: 2,
+            }}
+          >
+            <Typography>{announcement.message}</Typography>
           </Box>
         </Box>
-        </Box>
-        {/* Announcement content */}
-        <Box sx={{display: 'flex',
-           alignItems: 'center', 
-           borderLeft: `2px solid ${theme.palette.secondary.light}`,
-           paddingLeft: 2
-        }}>
-          <Typography>Attention students! The next math quiz will be held on Friday, so make sure to review all the topics covered. Good luck to everyone! Attention students! The next math quiz will be held on Friday, so make sure to review all the topics covered. Good luck to everyone!
-          Attention students! The next math quiz will be held on Friday, so make sure to review all the topics covered. Good luck to everyone! Attention students! The next math quiz will be held on Friday, so make sure to review all the topics covered. Good luck to everyone!
-          </Typography>
-        </Box>
-      </Box>
+      ))}
+
       {/* Announcement Section */}
-      <Box
+      {/* <Box
         sx={{
           display: "grid",
           marginTop:3, 
@@ -75,7 +113,7 @@ function Announcements() {
 
         }}
       >
-        {/* Announcer */}
+       
         <Box
         sx={{
           display: 'flex',
@@ -98,7 +136,7 @@ function Announcements() {
           </Box>
         </Box>
         </Box>
-        {/* Announcement content */}
+     
         <Box sx={{display: 'flex',
            alignItems: 'center', 
            borderLeft: `2px solid ${theme.palette.secondary.light}`,
@@ -108,8 +146,7 @@ function Announcements() {
           <Typography>Attention students! The next math quiz will be held on Friday, so make sure to review all the topics covered. Good luck to everyone! 
           </Typography>
         </Box>
-      </Box>
-     
+      </Box> */}
     </Box>
   );
 }

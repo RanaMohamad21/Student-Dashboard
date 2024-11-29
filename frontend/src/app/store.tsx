@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authenticationReducer from "../features/auth/authenticationSlice";
-
+import announcementsReducer from "../features/announcements/announcementSlice";
 export const store = configureStore({
     reducer: {
-         authentication: authenticationReducer, 
+         authentication: authenticationReducer,
+         announcements: announcementsReducer 
     }
 });
 
