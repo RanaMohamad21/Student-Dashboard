@@ -32,12 +32,12 @@ export const fetchAnnouncements = createAsyncThunk<Announcement[]>(
   "announcements/fetchAnnouncements",
   async () => {
     const response = await axios.get("http://localhost:5000/api/announcements");
-    console.log("👏🏼👏🏼👏🏼👏🏼👏🏼👏🏼👏🏼👏🏼👏🏼👏🏼👏🏼👏🏼👏🏼", response.data);
+    
     return response.data.data;
   }
 );
 
-const assignmentSlice = createSlice({
+const announcementSlice = createSlice({
   name: "announcements",
   initialState,
   reducers: {},
@@ -57,4 +57,4 @@ const assignmentSlice = createSlice({
   },
 });
 
-export default assignmentSlice.reducer;
+export default announcementSlice.reducer;
