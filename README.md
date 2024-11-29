@@ -32,7 +32,7 @@ Ensure you have the following installed:
 - Install frontend dependencies:
  Navigate to the frontend directory and install the required dependencies: `npm install`
 
--Install backend dependencies: 
+- Install backend dependencies: 
 Navigate to the backend directory and install the required dependencies:
 
 `cd backend`
@@ -41,10 +41,7 @@ Navigate to the backend directory and install the required dependencies:
 - Set up MongoDB Atlas:
 
 Create a MongoDB Atlas account (if you haven't already) and set up a database cluster.
-Copy the connection string provided by MongoDB Atlas and add it to the .env file in the backend directory:
-bash
-Copy code
-MONGODB_URI=<your-mongo-atlas-connection-string>
+Copy the connection string provided by MongoDB Atlas and add it to the .env file in the backend directory.
 
 ## Running the Application:
 -Start the backend server:
