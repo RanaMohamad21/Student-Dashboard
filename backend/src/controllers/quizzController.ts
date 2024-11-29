@@ -3,6 +3,7 @@ import Quiz from "../models/quizzes";
 import Subject from "../models/subjects";
 import { formatResponse } from "../utils/formatResponse";
 import mongoose from "mongoose";
+// import { QuizType } from "../types/quizzType";
 
 // CREATE: Add a new Quiz
 export const createQuiz = async (req: Request, res: Response): Promise<any> => {
@@ -100,8 +101,26 @@ export const getInactiveQuizzesBySubject = async (
 ): Promise<any> => {
   try {
     const subjectId = new mongoose.Types.ObjectId(req.params.id);
-    const quizzes = await Quiz.find({       status: "inactive",       subject: subjectId });
-    res      .status(200)      .json(formatResponse("Quizzes fetched successfully", quizzes));
+    const quizzes = await Quiz.find({       status: "inactive",       subject: subjectId }).sort({'schedule.start': 1});
+
+    if(!quizzes.length){
+      return res
+      .status(200)
+      .json(formatResponse("No quizzes found for this subject", []));
+    }
+
+    const subject = await Subject.findById(subjectId);
+    if(!subject){
+return res.status(404).json(formatResponse("Subject not found", null,"NotFoundError"));
+    }
+    const quizzesData = quizzes.map(quiz=>({
+      ...quiz.toObject(),
+      subject:subject.subjectName
+    }))
+
+    res
+      .status(200)
+      .json(formatResponse("Quizzes fetched successfully", quizzesData));
   } catch (error) {
     res
       .status(500)
@@ -114,6 +133,8 @@ export const getInactiveQuizzesBySubject = async (
       );
   }
 };
+
+
 
 // READ: Get quizzes by date
 
