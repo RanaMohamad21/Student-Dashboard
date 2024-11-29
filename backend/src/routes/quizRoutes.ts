@@ -9,7 +9,7 @@ import {
   getActiveQuizzes, 
   updateQuiz, 
   deleteQuiz, 
-  getInactiveQuizzesBySubject 
+  getInactiveQuizzesBySubject ,
 } from "../controllers/quizzController";
 
 const router = express.Router();
@@ -25,7 +25,8 @@ router.delete('/quizzes/:id', deleteQuiz); // Route to delete a quiz
 router.get('/quizzes/student/:id', getOldQuizzesByStudent); // Route to get quizzes submitted by a specific student:
 
 // Routes related to subject:
-router.get('/quizzes/subject/inactive/:id', getInactiveQuizzesBySubject); // Route to get all upcoming quizzes for a subject:
+router.get('/quizzes/subject/inactive/:id', getInactiveQuizzesBySubject); // Route to get all upcoming quizzes for a subject
+
 router.get('/quizzes/subject/archived/:id', getArchivedQuizzesBySubject); // Route to get archived quizzes for a subject
 
 // Routes related to date:
