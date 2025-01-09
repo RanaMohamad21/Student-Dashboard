@@ -1,78 +1,102 @@
 # Student Quizzes and Announcements Dashboard
+
 ## Overview
-This full-stack application allows users to view and manage student quizzes and announcements for the current semester. The application is designed with a focus on a responsive, user-friendly interface, using React, Redux, and Material UI on the frontend, and Express.js with MongoDB (hosted on MongoDB Atlas) on the backend. The user is required to log in to access the dashboard, which provides CRUD functionality for quizzes and announcements.
+This full-stack application allows users to view and manage student quizzes and announcements for the current semester. Designed with a focus on responsiveness and user-friendliness, the application utilizes React, Redux, and Material UI on the frontend, and Express.js with MongoDB (hosted on MongoDB Atlas) on the backend. Authentication ensures only authorized users can access the dashboard, which provides full CRUD functionality for managing quizzes and announcements.
 
 ## Features
-1. Login System: No username/password required; users can simply click to log in.
-2. User Authentication: Only logged-in users can access the dashboard using a Higher Order Component (HOC) called requireAuth.
-3. Dashboard: Displays quizzes and announcements data, with functionality for CRUD operations (Create, Read, Update, Delete) and schemas for teachers, users, students, grades, and subjects.
-4. Responsive Design: The application adjusts to different screen sizes and is mobile-friendly.
-5. Material UI: A modern, sleek design with hover effects on sidebar links.
-6. Internationalization (i18n): The application is set up for future internationalization (i18n), and the home page can currently be translated into Arabic or French.
+- **Login System**: Users can log in with a single click—no need for a username or password.
+- **User Authentication**: Access to the dashboard is secured with a Higher Order Component (HOC) called `requireAuth`.
+- **Dashboard**: Displays quizzes and announcements with full CRUD capabilities and schemas for teachers, students, grades, and subjects.
+- **Responsive Design**: Optimized for all screen sizes, ensuring mobile-friendliness.
+- **Material UI**: Provides a sleek, modern design, including hover effects on sidebar links.
+- **Internationalization (i18n)**: Uses the `react-i18next` package for future-proof internationalization, with the home page currently translatable into Arabic and French.
 
 ## Technologies Used
-- Frontend: React, Redux, TypeScript, Material UI
-- Backend: Express.js, MongoDB (hosted on MongoDB Atlas)
-- Authentication: Custom login system (HOC requireAuth)
-- Testing: Postman
-- i18n Support: Internationalization setup for translation (future-proofing)
+### Frontend
+- **React**: For building dynamic user interfaces.
+- **Redux**: State management for scalable applications.
+- **TypeScript**: Ensures type safety across the codebase.
+- **Material UI**: Modern and customizable UI components.
 
+### Backend
+- **Express.js**: Simplifies routing and server logic.
+- **MongoDB Atlas**: Remotely hosted NoSQL database for secure and scalable data storage.
+
+### Other Tools
+- **Authentication**: Custom login system using `requireAuth` HOC.
+- **Postman**: For API testing.
+- **i18n Support**: Implemented using `react-i18next` for language translation.
 
 ## Getting Started
+
 ### Prerequisites
 Ensure you have the following installed:
-`Node.js (v14 or above)`
-`npm or yarn`
+- Node.js (v14 or above)
+- npm or yarn
 
-## Installation Instructions
-- Clone the repository:
-`git clone [<repository-url>](https://github.com/RanaMohamad21/Student-dashboard/)`
-`cd ./frontend`
+### Installation Instructions
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/RanaMohamad21/Student-dashboard/
+   ```
+2. **Navigate to the frontend directory**:
+   ```bash
+   cd ./frontend
+   ```
+3. **Install frontend dependencies**:
+   ```bash
+   npm install
+   ```
+4. **Navigate to the backend directory**:
+   ```bash
+   cd ../backend
+   ```
+5. **Install backend dependencies**:
+   ```bash
+   npm install
+   ```
+6. **Set up MongoDB Atlas**:
+   - Create a MongoDB Atlas account (if you haven’t already) and set up a database cluster.
+   - Copy the connection string provided by MongoDB Atlas.
+   - Add the connection string to the `.env` file in the backend directory.
 
-- Install frontend dependencies:
- Navigate to the frontend directory and install the required dependencies: `npm install`
+### Running the Application
+1. **Start the backend server**:
+   ```bash
+   cd backend
+   npm start
+   ```
+2. **Start the frontend application**:
+   ```bash
+   cd frontend
+   npm start
+   ```
+3. The backend will run on `http://localhost:5000` by default.
 
-- Install backend dependencies: 
-Navigate to the backend directory and install the required dependencies:
-
-`cd backend`
-`npm install`
-
-- Set up MongoDB Atlas:
-
-Create a MongoDB Atlas account (if you haven't already) and set up a database cluster.
-Copy the connection string provided by MongoDB Atlas and add it to the .env file in the backend directory.
-
-## Running the Application:
--Start the backend server:
-
-`cd backend`
-`npm start`
-
--Start the frontend application:
-`cd frontend`
-`npm start`
-
-The backend will be running on http://localhost:5000 by default.
-Demo Video
-You can view the demo of the task and application features in the video below:
-[Demo Video Link](https://drive.google.com/file/d/1pquSPJIVBUwbCKXdnbs00POEOYh8J9sD/view?usp=sharing)
-
-Time Spent
-I spent approximately 70 hours working on this challenge, including setup, coding, testing, and documentation.
+## Demo
+View a demonstration of the application:
+[Demo Video](https://drive.google.com/file/d/1pquSPJIVBUwbCKXdnbs00POEOYh8J9sD/view?usp=drive_link)
 
 ## Structure of the Code
-### Frontend:
-React & Redux: For state management and UI rendering.
-Material UI: For consistent and modern UI components.
-Responsive Design: Using CSS Grid and Flexbox to ensure the app adapts to all screen sizes.
 
-### Backend:
-Express.js: For creating the API endpoints and handling server-side logic.
-MongoDB Atlas: Used for hosting the database remotely.
+### Frontend
+- **React & Redux**: For dynamic state management and UI rendering.
+- **Material UI**: For modern, consistent UI components.
+- **Responsive Design**: Utilizes CSS Grid and Flexbox for adaptability across screen sizes.
 
-### Best Practices Followed
-Code is modular and reusable, with components split into small, maintainable files.
-State management is handled with Redux for easy scaling.
-API endpoints are RESTful and follow standard conventions.
-The application is prepared for i18n with future localization in mind.
+### Backend
+- **Express.js**: Handles API routing and server-side logic.
+- **MongoDB Atlas**: Remotely hosted NoSQL database for secure and scalable storage.
+
+## Best Practices Followed
+- Modular and reusable code with small, maintainable components.
+- Redux for efficient state management.
+- RESTful API endpoints adhering to standard conventions.
+- Future-proof i18n setup for seamless localization.
+
+## Time Spent
+Approximately **70 hours** were spent on this challenge, including setup, coding, testing, and documentation.
+
+---
+For any inquiries, please contact [RanaMohamad21](https://github.com/RanaMohamad21).
+
